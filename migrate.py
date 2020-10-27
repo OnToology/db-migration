@@ -29,5 +29,5 @@ def generate_code():
 txt = generate_code()
 f = open("local_migrate.py", "w")
 f.write(txt)
-f.save()
+f.close()
 
