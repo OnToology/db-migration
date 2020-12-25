@@ -1,4 +1,4 @@
-
+from OnToology.models import *
 
 def user_code(ouser):
     user_get = '''users = OUser.objects.filter(email="%s")\n''' % (ouser.email)
