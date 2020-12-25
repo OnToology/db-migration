@@ -51,7 +51,7 @@ def get_code_per_user(ouser):
         for p in pnames:
             # publish_txt = '''p = PublishName(name="%s", user=user, repo=repo, ontology="%s")\n''' % (p.name, p.ontology)
             # publish_txt += '''p.save()\n'''
-            publish_txt += publish_code(pname)
+            publish_txt += publish_code(p)
         txt += repo_txt + publish_txt
     return txt
 
