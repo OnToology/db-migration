@@ -65,8 +65,9 @@ def generate_code():
     return txt
 
 
-txt = generate_code()
-f = open("local_migrate.py", "w")
-f.write(txt)
-f.close()
+def generate(fname="local_migrate.py"):
+    txt = generate_code()
+    f = open(fname, "w")
+    f.write(txt)
+    f.close()
 
