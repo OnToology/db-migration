@@ -30,20 +30,29 @@ def repo_code(repo):
     return txt
 
 
+def publish_code(pname):
+    publish_txt = '''p = PublishName(name="%s", user=user, repo=repo, ontology="%s")\n''' % (pname.name, pname.ontology)
+    publish_txt += '''p.save()\n'''
+    return publish_txt
+
+
 def get_code_per_user(ouser):
-    txt = ""
     user_txt = user_code(ouser)
-    txt += user_txt
+    txt = user_txt
     for repo in ouser.repos:
+        repo_txt = repo_code(repo)
+        repo_txt += append_repo_code()
         # repo_txt = '''repo = Repo(url="%s", state="Ready", previsual=False, previsual_page_available=False, notes="",
         # progress=0.0, busy=False)\n''' % (repo.url)
         # repo_txt += '''repo.save()\n'''
         # txt += repo_txt
         pnames = PublishName.objects.filter(repo=repo, user=ouser)
+        publish_txt = ""
         for p in pnames:
-            publish_txt = '''p = PublishName(name="%s", user=user, repo=repo, ontology="%s")\n''' % (p.name, p.ontology)
-            publish_txt += '''p.save()\n'''
-            txt += publish_txt
+            # publish_txt = '''p = PublishName(name="%s", user=user, repo=repo, ontology="%s")\n''' % (p.name, p.ontology)
+            # publish_txt += '''p.save()\n'''
+            publish_txt += publish_code(pname)
+        txt += repo_txt + publish_txt
     return txt
 
 
@@ -52,6 +61,7 @@ def generate_code():
     users = OUser.objects.all()
     for ouser in users:
         txt += get_code_per_user(ouser)
+        txt += "\n"
     return txt
 
 
